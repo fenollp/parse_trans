@@ -58,6 +58,12 @@
 -spec parse_transform(forms(), options()) ->
     forms().
 parse_transform(Forms, Options) ->
+    io:format(user, "\n~p \n", [Forms]),
+    R = pt(Forms, Options),
+    io:format(user, "\n~p \n", [R]),
+    R.
+
+pt(Forms, Options) ->
     Trace = ct_trace_opt(Options, Forms),
     case parse_trans:depth_first(fun(T,F,C,A) ->
                                          xform_fun(T,F,C,A,Forms, Trace)
